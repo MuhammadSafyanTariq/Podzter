@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1087598849575",
+    "project_id": "insta-clone-a7798",
+    "storage_bucket": "insta-clone-a7798.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087598849575:android:ba0b2b0c669a4a41796802",
+        "android_client_info": {
+          "package_name": "mst.devops.Bunnygram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087598849575-ae0iaikn4tnuifd7be9lvb809mrs5jjs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvW4B3z-T6i7UmVOECpj1L5L1DJ1Ak5gA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087598849575-ae0iaikn4tnuifd7be9lvb809mrs5jjs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
