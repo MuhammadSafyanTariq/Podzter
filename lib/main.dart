@@ -4,10 +4,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:insta_clone/Provider/user_provider.dart';
-import 'package:insta_clone/Screens/login_Screen.dart';
 import 'package:insta_clone/Screens/sign_up_screen.dart';
-import 'package:insta_clone/Screens/welcome_screen.dart';
 import 'package:insta_clone/responsive/mobile_screen_layout.dart';
 import 'package:insta_clone/responsive/responsive_screen_layout.dart';
 import 'package:insta_clone/responsive/web_screen_layout.dart';
@@ -31,13 +30,14 @@ void main() async {
     await Firebase.initializeApp();
   }
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      systemNavigationBarColor: Colors.black,
-      statusBarColor: Colors.blue.shade900,
+    const SystemUiOverlayStyle(
+      systemNavigationBarColor: Color(0xFF0d0521),
+      statusBarColor: Colors.transparent,
+      // statusBarColor: Color(0xFF0d0521),
       systemNavigationBarIconBrightness: Brightness.light,
     ),
   );
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -45,12 +45,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // SystemChrome.setSystemUIOverlayStyle(
-    //   SystemUiOverlayStyle(
-    //     systemNavigationBarColor: Colors.black,
-    //     systemNavigationBarIconBrightness: Brightness.light,
-    //   ),
-    // );
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -62,15 +56,24 @@ class MyApp extends StatelessWidget {
         title: 'Instagram Clone',
         theme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: mobileBackgroundColor,
+          textTheme: GoogleFonts.interTextTheme(
+            Theme.of(context).textTheme.apply(bodyColor: Colors.white),
+          ).copyWith(
+            displayLarge: GoogleFonts.syne(color: Colors.white),
+            displayMedium: GoogleFonts.syne(color: Colors.white),
+            displaySmall: GoogleFonts.syne(color: Colors.white),
+            headlineLarge: GoogleFonts.syne(color: Colors.white),
+            headlineMedium: GoogleFonts.syne(color: Colors.white),
+            headlineSmall: GoogleFonts.syne(color: Colors.white),
+            titleLarge: GoogleFonts.syne(color: Colors.white),
+            titleMedium: GoogleFonts.syne(color: Colors.white),
+          ),
         ),
         home: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
-            //FirebaseAuth.instance.signOut();
             if (snapshot.connectionState == ConnectionState.active) {
-              // Checking if the snapshot has any data or not
               if (snapshot.hasData) {
-                // if snapshot has data which means user is logged in then we check the width of screen and accordingly display the screen layout
                 return AnimatedSplashScreen(
                   duration: 1000,
                   splashIconSize: 300,
@@ -93,7 +96,6 @@ class MyApp extends StatelessWidget {
               }
             }
 
-            // means connection to future hasnt been made yet
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(),
@@ -110,8 +112,7 @@ class MyApp extends StatelessWidget {
               ),
               splashTransition: SplashTransition.slideTransition,
               backgroundColor: mobileBackgroundColor,
-              nextScreen: SignUpScreen(),
-              // nextScreen: WelcomeScreen(),
+              nextScreen: const SignUpScreen(),
             );
           },
         ),

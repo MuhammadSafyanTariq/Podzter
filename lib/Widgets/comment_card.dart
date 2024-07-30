@@ -60,6 +60,7 @@ class _CommentCardState extends State<CommentCard> {
                       ),
                       style: const TextStyle(
                         fontSize: 12,
+                        color: Colors.white60,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
@@ -68,13 +69,13 @@ class _CommentCardState extends State<CommentCard> {
               ),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: const Icon(
-              Icons.favorite,
-              size: 16,
-            ),
-          )
+          // Container(
+          //   padding: const EdgeInsets.all(8),
+          //   child: const Icon(
+          //     Icons.favorite,
+          //     size: 16,
+          //   ),
+          // )
         ],
       ),
     );
