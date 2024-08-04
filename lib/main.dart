@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:insta_clone/Provider/user_provider.dart';
+import 'package:insta_clone/Screens/interest_selection_screen.dart';
+import 'package:insta_clone/Screens/main_screen.dart';
 import 'package:insta_clone/Screens/sign_up_screen.dart';
-import 'package:insta_clone/responsive/mobile_screen_layout.dart';
 import 'package:insta_clone/responsive/responsive_screen_layout.dart';
 import 'package:insta_clone/responsive/web_screen_layout.dart';
 import 'package:insta_clone/utils/colors.dart';
@@ -29,15 +30,15 @@ void main() async {
   } else {
     await Firebase.initializeApp();
   }
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      systemNavigationBarColor: Color(0xFF0d0521),
-      statusBarColor: Colors.transparent,
-      // statusBarColor: Color(0xFF0d0521),
-      systemNavigationBarIconBrightness: Brightness.light,
-    ),
-  );
-  runApp(MyApp());
+  // SystemChrome.setSystemUIOverlayStyle(
+  //   const SystemUiOverlayStyle(
+  //     systemNavigationBarColor: Color(0xFF0d0521),
+  //     statusBarColor: Colors.transparent,
+  //     // statusBarColor: Color(0xFF0d0521),
+  //     systemNavigationBarIconBrightness: Brightness.light,
+  //   ),
+  // );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -84,9 +85,9 @@ class MyApp extends StatelessWidget {
                   ),
                   splashTransition: SplashTransition.slideTransition,
                   backgroundColor: mobileBackgroundColor,
-                  nextScreen: const ResponsiveLayout(
-                    mobileScreenLayout: MobileScreenLayout(),
-                    webScreenLayout: WebScreenLayout(),
+                  nextScreen: ResponsiveLayout(
+                    mobileScreenLayout: MainScreen(),
+                    webScreenLayout: const WebScreenLayout(),
                   ),
                 );
               } else if (snapshot.hasError) {
@@ -112,7 +113,7 @@ class MyApp extends StatelessWidget {
               ),
               splashTransition: SplashTransition.slideTransition,
               backgroundColor: mobileBackgroundColor,
-              nextScreen: const SignUpScreen(),
+              nextScreen: const ExpertSelectionScreen(),
             );
           },
         ),

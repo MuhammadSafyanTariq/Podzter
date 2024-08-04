@@ -7,6 +7,7 @@ const blueColor = Color.fromRGBO(0, 149, 246, 1);
 const primaryColor = Colors.white;
 const secondaryColor = Colors.grey;
 var appColor = Colors.blue.shade900;
+var textColor = Color(0xFF7B652FF);
 String image1 =
     'https://img.freepik.com/premium-photo/cartoon-character-with-blue-shirt-glasses_561641-2084.jpg?w=1380';
 String image2 =

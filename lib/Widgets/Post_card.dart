@@ -53,7 +53,7 @@ class _PostCardState extends State<PostCard> {
   Widget build(BuildContext context) {
     final UserModel user = Provider.of<UserProvider>(context).getUser;
     return Container(
-      margin: const EdgeInsets.only(bottom: 5),
+      margin: const EdgeInsets.only(bottom: 25),
       padding: const EdgeInsets.symmetric(vertical: 0),
       decoration: const BoxDecoration(
           color: Colors.black54,

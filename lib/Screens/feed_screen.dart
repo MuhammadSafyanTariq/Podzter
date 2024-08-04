@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:insta_clone/Widgets/Post_card.dart';
 import 'package:insta_clone/Widgets/icon_widget.dart';
 
@@ -14,31 +15,39 @@ class FeedScreen extends StatefulWidget {
 class _FeedScreenState extends State<FeedScreen> {
   @override
   void initState() {
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        systemNavigationBarColor: Colors.black,
-        statusBarColor: Colors.transparent,
-        systemNavigationBarIconBrightness: Brightness.light,
-      ),
-    );
+    // SystemChrome.setSystemUIOverlayStyle(
+    //   const SystemUiOverlayStyle(
+    //     systemNavigationBarColor: Colors.black,
+    //     statusBarColor: Colors.transparent,
+    //     systemNavigationBarIconBrightness: Brightness.light,
+    //   ),
+    // );
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.black,
+        statusBarColor: Color.fromRGBO(0, 0, 0, 0.50),
+        systemNavigationBarIconBrightness: Brightness.light,
+      ),
+    );
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(
-                  'assets/background.png',
-                ),
-                fit: BoxFit.cover)),
+          image: DecorationImage(
+              image: AssetImage(
+                'assets/profilebg.png',
+              ),
+              fit: BoxFit.cover),
+        ),
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
               child: Container(
-                height: 100,
+                height: 143,
                 // height: 160,
                 // padding: const EdgeInsets.only(bottom: 10),
                 // decoration: const BoxDecoration(
@@ -52,13 +61,17 @@ class _FeedScreenState extends State<FeedScreen> {
                 //         ),
                 //         fit: BoxFit.cover)),
                 padding: EdgeInsets.zero,
-                margin: EdgeInsets.only(bottom: 10),
-                color: const Color.fromRGBO(0, 0, 0, 0.5),
+                margin: const EdgeInsets.only(bottom: 25),
+                decoration: const BoxDecoration(
+                    color: Color.fromRGBO(0, 0, 0, 0.3),
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(30))),
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 40,
-                    ),
+                    Spacer(),
+                    Spacer(),
+
                     Row(
                       children: [
                         const SizedBox(
@@ -68,7 +81,7 @@ class _FeedScreenState extends State<FeedScreen> {
                           // height: 100,
                           child: Image.asset(
                             'assets/logo.png',
-                            height: 40,
+                            height: 45,
                           ),
                           // width: 100,
                         ),
@@ -82,13 +95,9 @@ class _FeedScreenState extends State<FeedScreen> {
                                 height: 40,
                                 width: 40,
                                 decoration: const BoxDecoration(
-                                  color: Color.fromRGBO(0, 0, 0, 0.4),
+                                  color: Color.fromRGBO(0, 0, 0, 0.5),
+                                  // color: Color.fromRGBO(0, 0, 0, 0.5),
                                   shape: BoxShape.circle,
-                                  // boxShadow: [
-                                  //   BoxShadow(
-                                  //       color: Colors.white10,
-                                  //       blurRadius: 5),
-                                  // ]
                                 ),
                               ),
                               Align(
@@ -96,7 +105,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                 child: IconWidget(
                                   assetPath: 'bell',
                                   // size: 5,
-                                  size: 18,
+                                  size: 23,
                                 ),
                               ),
                             ],
@@ -114,7 +123,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                 height: 40,
                                 width: 40,
                                 decoration: const BoxDecoration(
-                                  color: Color.fromRGBO(0, 0, 0, 0.4),
+                                  color: Color.fromRGBO(0, 0, 0, 0.5),
                                   shape: BoxShape.circle,
                                   // boxShadow: [
                                   //   BoxShadow(
@@ -128,7 +137,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                 child: IconWidget(
                                   assetPath: 'menu',
                                   // size: 5,
-                                  size: 18,
+                                  size: 23,
                                 ),
                               ),
                             ],
@@ -139,6 +148,8 @@ class _FeedScreenState extends State<FeedScreen> {
                         ),
                       ],
                     ),
+                    Spacer(),
+
                     // SingleChildScrollView(
                     //   scrollDirection: Axis.horizontal,
                     //   child: Row(

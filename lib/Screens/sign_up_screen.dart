@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:insta_clone/Resource/Auth_Methods.dart';
 import 'package:insta_clone/Screens/login_Screen.dart';
@@ -89,168 +91,239 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.black,
+        statusBarColor: Colors.transparent,
+        systemNavigationBarIconBrightness: Brightness.light,
+      ),
+    );
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-            ),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.blue.shade900, Colors.black],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+      body: SingleChildScrollView(
+        child: Container(
+          // height: MediaQuery.of(context).size.height,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(
+                  'assets/profilebg.png',
+                ),
+                fit: BoxFit.cover),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 90,
               ),
-            ),
-            width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Image(
-                  image: AssetImage(
-                    'assets/logo.png',
-                  ),
-                  height: 150,
+              const Image(
+                image: AssetImage(
+                  'assets/logo.png',
                 ),
+                height: 56,
+              ),
 
-                InkWell(
-                  onTap: () {
-                    selectImage();
-                  },
-                  child: Stack(
-                    children: [
-                      _image != null
-                          ? CircleAvatar(
-                              radius: 100,
-                              backgroundImage: MemoryImage(_image!),
-                            )
-                          : Container(
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(color: Colors.white)),
-                              child: const CircleAvatar(
-                                backgroundColor: Colors.transparent,
-                                radius: 50,
-                                child: Icon(
-                                  Icons.camera_alt_outlined,
-                                  color: Colors.white,
-                                  size: 60,
-                                ),
-                                // backgroundImage: AssetImage(
-                                //   'assets/logo.png',
-                                // ),
-                              ),
-                            ),
-                    ],
-                  ),
-                ),
-                // TextButton(
-                //   onPressed: () {
-                //     selectImage();
-                //   },
-                //   child: const Text("Add an Image"),
-                // ),
-                const SizedBox(
-                  height: 50,
-                ),
-                TextInputFeilds(
-                  textEditingController: _usernameController,
-                  hintText: "Please enter the Username",
-                  textInputType: TextInputType.text,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextInputFeilds(
-                  textEditingController: _emailController,
-                  hintText: "Please enter the email",
-                  textInputType: TextInputType.emailAddress,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextInputFeilds(
-                  textEditingController: _passwordController,
-                  hintText: "Please enter the password",
-                  isPass: true,
-                  textInputType: TextInputType.visiblePassword,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextInputFeilds(
-                  textEditingController: _bioController,
-                  hintText: "Please enter the Bio",
-                  textInputType: TextInputType.text,
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                InkWell(
-                  onTap: () {
-                    SignUpUser;
-                    showSnackBar(SignUpUser().toString(), context);
-                  },
-                  child: Container(
-                    width: 200,
-                    height: 50,
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    decoration: const ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(30),
+              // InkWell(
+              //   onTap: () {
+              //     selectImage();
+              //   },
+              //   child: Stack(
+              //     children: [
+              //       _image != null
+              //           ? CircleAvatar(
+              //               radius: 100,
+              //               backgroundImage: MemoryImage(_image!),
+              //             )
+              //           : Container(
+              //               decoration: BoxDecoration(
+              //                   shape: BoxShape.circle,
+              //                   border: Border.all(color: Colors.white)),
+              //               child: const CircleAvatar(
+              //                 backgroundColor: Colors.transparent,
+              //                 radius: 50,
+              //                 child: Icon(
+              //                   Icons.camera_alt_outlined,
+              //                   color: Colors.white,
+              //                   size: 60,
+              //                 ),
+              //                 // backgroundImage: AssetImage(
+              //                 //   'assets/logo.png',
+              //                 // ),
+              //               ),
+              //             ),
+              //     ],
+              //   ),
+              // ),
+              // TextButton(
+              //   onPressed: () {
+              //     selectImage();
+              //   },
+              //   child: const Text("Add an Image"),
+              // ),
+              const SizedBox(
+                height: 100,
+              ),
+              TextInputFields(
+                textEditingController: _usernameController,
+                hintText: "Enter the Username",
+                textInputType: TextInputType.text,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              TextInputFields(
+                textEditingController: _emailController,
+                hintText: "Enter the email",
+                textInputType: TextInputType.emailAddress,
+              ),
+
+              const SizedBox(
+                height: 20,
+              ),
+              TextInputFields(
+                textEditingController: _bioController,
+                hintText: "Enter the Bio",
+                textInputType: TextInputType.text,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              TextInputFields(
+                textEditingController: _passwordController,
+                hintText: "Enter Password",
+                isPass: true,
+                textInputType: TextInputType.visiblePassword,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              TextInputFields(
+                textEditingController: _passwordController,
+                hintText: "Enter confirm Password",
+                isPass: true,
+                textInputType: TextInputType.visiblePassword,
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              InkWell(
+                onTap: () {
+                  SignUpUser;
+                  showSnackBar(SignUpUser().toString(), context);
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 58,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    image: DecorationImage(
+                        image: AssetImage(
+                          'assets/buttonbg.png',
                         ),
-                      ),
-                      color: Color.fromRGBO(13, 71, 161, 1),
-                    ),
-                    child: _isLoading
-                        ? const Center(
-                            child: CircularProgressIndicator(
-                              color: primaryColor,
-                            ),
-                          )
-                        : const Text(
-                            "Sign up",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
-                          ),
+                        fit: BoxFit.cover),
                   ),
+                  child: _isLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: primaryColor,
+                          ),
+                        )
+                      : Text(
+                          "Join Podzter",
+                          style: GoogleFonts.syne(
+                            color: Colors.white,
+                            fontSize: 22,
+                          ),
+                        ),
                 ),
-                SizedBox(
-                  height: screenHeight * 0.05,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              ),
+              SizedBox(
+                height: 58,
+              ),
+              RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  text: "By Creating Account I Accept App's ",
+                  style: TextStyle(color: Color(0xFF85808E), fontSize: 16),
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 8,
-                      ),
-                      child: const Text("Already have an acount? "),
+                    TextSpan(
+                      text: "Terms And Condition",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => Container()),
+                          );
+                        },
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 8,
-                      ),
-                      child: GestureDetector(
-                        onTap: goToLoginScreen,
-                        child: const Text(
-                          "Sign in",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
+                    TextSpan(
+                      text: " With ",
+                      style: TextStyle(color: Color(0xFF85808E)),
+                    ),
+                    TextSpan(
+                      text: "Privacy Policy.",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => Container()),
+                          );
+                        },
                     ),
                   ],
-                )
-              ],
-            ),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 15),
+                child: Divider(
+                  color: Colors.white54,
+                  thickness: 0.5,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8,
+                    ),
+                    child: const Text(
+                      "Already have an acount? ",
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8,
+                    ),
+                    child: GestureDetector(
+                      onTap: goToLoginScreen,
+                      child: Text(
+                        "Sign in",
+                        style: TextStyle(
+                          color: textColor,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline,
+                          decorationColor: textColor,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 50,
+              )
+            ],
           ),
         ),
       ),
