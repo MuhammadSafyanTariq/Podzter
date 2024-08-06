@@ -28,9 +28,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Color(0xFF191C3D),
-    ));
+  SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.black,
+        statusBarColor: Color.fromRGBO(0, 0, 0, 0.50),
+        systemNavigationBarIconBrightness: Brightness.light,
+      ),
+    );
     super.initState();
     getData();
   }
@@ -351,6 +355,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       style: TextStyle(color: Colors.white))),
                             ],
                           ),
+                        ),
+                        SizedBox(
+                          height: 60,
                         ),
                       ],
                     ),

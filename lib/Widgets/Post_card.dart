@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:insta_clone/Models/user.dart';
 import 'package:insta_clone/Provider/user_provider.dart';
 import 'package:insta_clone/Resource/FireStore_methods.dart';
@@ -74,10 +73,10 @@ class _PostCardState extends State<PostCard> {
                         backgroundImage: NetworkImage(
                           widget.snap['profImage'],
                         )),
-                    SizedBox(
+                    const SizedBox(
                       width: 5,
                     ),
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width * 0.60,
                       child: Padding(
                         padding: const EdgeInsets.only(
@@ -92,23 +91,23 @@ class _PostCardState extends State<PostCard> {
                               children: [
                                 Row(
                                   children: [
-                                    Text(
+                                    const Text(
                                       // widget.snap['username'],
                                       "Safyan Tariq",
-                                      style: const TextStyle(fontSize: 18),
+                                      style: TextStyle(fontSize: 18),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 8,
                                     ),
                                     IconWidget(assetPath: 'verify')
                                   ],
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 3,
                                 ),
-                                Text(
+                                const Text(
                                   "Horror • True Crime",
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 13,
                                     color: Colors.white54,
                                   ),
@@ -119,7 +118,7 @@ class _PostCardState extends State<PostCard> {
                         ),
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     const Icon(
                       Icons.more_horiz_rounded,
                       color: Colors.white70,
@@ -201,57 +200,55 @@ class _PostCardState extends State<PostCard> {
                   },
                 ),
               ),
-              Positioned(
-                child: GestureDetector(
-                  onDoubleTap: () async {
-                    setState(() {
-                      isLikeAnimating = true;
-                    });
-                    await firestoreMethods().likePost(
-                      widget.snap['postId'],
-                      user.uid!,
-                      widget.snap['likes'],
-                    );
-                  },
-                  child: Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(30),
-                              bottomRight: Radius.circular(30),
-                            ),
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(
-                                  widget.snap['postUrl'],
-                                ))),
-                        height: MediaQuery.of(context).size.height * 0.35,
-                        width: double.infinity,
-                      ),
-                      AnimatedOpacity(
-                        duration: const Duration(milliseconds: 200),
-                        opacity: isLikeAnimating ? 1 : 0,
-                        child: LikeAnimation(
-                          isAnimating: isLikeAnimating,
-                          duration: const Duration(milliseconds: 400),
-                          onEnd: () {
-                            setState(
-                              () {
-                                isLikeAnimating = false;
-                              },
-                            );
-                          },
-                          child: const Icon(
-                            Icons.favorite,
-                            color: Colors.white,
-                            size: 100,
+              GestureDetector(
+                onDoubleTap: () async {
+                  setState(() {
+                    isLikeAnimating = true;
+                  });
+                  await firestoreMethods().likePost(
+                    widget.snap['postId'],
+                    user.uid!,
+                    widget.snap['likes'],
+                  );
+                },
+                child: Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(30),
+                            bottomRight: Radius.circular(30),
                           ),
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(
+                                widget.snap['postUrl'],
+                              ))),
+                      height: MediaQuery.of(context).size.height * 0.35,
+                      width: double.infinity,
+                    ),
+                    AnimatedOpacity(
+                      duration: const Duration(milliseconds: 200),
+                      opacity: isLikeAnimating ? 1 : 0,
+                      child: LikeAnimation(
+                        isAnimating: isLikeAnimating,
+                        duration: const Duration(milliseconds: 400),
+                        onEnd: () {
+                          setState(
+                            () {
+                              isLikeAnimating = false;
+                            },
+                          );
+                        },
+                        child: const Icon(
+                          Icons.favorite,
+                          color: Colors.white,
+                          size: 100,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -268,7 +265,7 @@ class _PostCardState extends State<PostCard> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                       color: Colors.black.withOpacity(0.65),
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(30),
                           bottomRight: Radius.circular(30))),
                   child: Row(

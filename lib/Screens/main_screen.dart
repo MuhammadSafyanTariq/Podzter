@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:insta_clone/Widgets/custom_nav_bar.dart';
 import 'package:insta_clone/utils/GlobalVariables.dart';
 
@@ -20,6 +21,13 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.black,
+        statusBarColor: Color.fromRGBO(0, 0, 0, 0.50),
+        systemNavigationBarIconBrightness: Brightness.light,
+      ),
+    );
     return Scaffold(
       body: Stack(
         children: [
@@ -32,8 +40,10 @@ class _MainScreenState extends State<MainScreen> {
               });
             },
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
             child: CustomNavBar(
               onItemSelected: _onItemSelected,
               selectedIndex: _selectedIndex,

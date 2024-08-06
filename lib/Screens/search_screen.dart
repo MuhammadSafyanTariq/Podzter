@@ -1,9 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:insta_clone/Screens/profile_Screen.dart';
-import 'package:insta_clone/utils/GlobalVariables.dart';
-import 'package:insta_clone/utils/colors.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -15,105 +11,156 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   bool isShowUsers = false;
-  bool isLoading = false;
+
   @override
   void dispose() {
     super.dispose();
     _searchController.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: mobileBackgroundColor,
-        title: TextFormField(
+  Widget _buildSearchBar() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: TextFormField(
           controller: _searchController,
           decoration: const InputDecoration(
-            labelText: 'Search for a user ...',
+            hintText: 'Search Here...',
+            border: InputBorder.none,
+            icon: Icon(Icons.search, color: Colors.white70),
           ),
           onFieldSubmitted: (String _) {
             setState(() {
               isShowUsers = true;
             });
-            print(_searchController.text);
           },
         ),
       ),
-      body: isShowUsers
-          ? FutureBuilder(
-              future: FirebaseFirestore.instance
-                  .collection('users')
-                  .where('username',
-                      isGreaterThanOrEqualTo: _searchController.text)
-                  .get(),
-              builder: ((context, snapshot) {
+    );
+  }
+
+  Widget _buildTabButton(String text, bool isSelected) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color: isSelected ? Colors.white : Colors.white.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          color: isSelected ? Colors.black : Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildUserProfile(String imageUrl, String name, String description) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 25,
+            backgroundImage: NetworkImage(imageUrl),
+          ),
+          const SizedBox(width: 16),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                name,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                description,
+                style: const TextStyle(
+                  color: Colors.white70,
+                  fontSize: 14,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 60),
+            _buildSearchBar(),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                children: [
+                  _buildTabButton("Podcast", true),
+                  const SizedBox(width: 10),
+                  _buildTabButton("Guest", false),
+                  const SizedBox(width: 10),
+                  _buildTabButton("Sponsor", false),
+                  const Spacer(),
+                  const Icon(Icons.filter_list, color: Colors.white),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                "Tailored For You",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            FutureBuilder(
+              future: FirebaseFirestore.instance.collection('users').get(),
+              builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }
-                return snapshot.data == null
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : ListView.builder(
-                        itemCount: (snapshot.data! as dynamic).docs.length,
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => ProfileScreen(
-                                  uid: (snapshot.data! as dynamic).docs[index]
-                                      ['uid'],
-                                ),
-                              ),
-                            ),
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                backgroundImage: NetworkImage(
-                                  (snapshot.data! as dynamic).docs[index]
-                                      ['photoUrl'],
-                                ),
-                              ),
-                              title: Text((snapshot.data! as dynamic)
-                                  .docs[index]['username']),
-                            ),
-                          );
-                        },
-                      );
-              }),
-            )
-          : FutureBuilder(
-              future: FirebaseFirestore.instance.collection('posts').get(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                return snapshot.data == null
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : StaggeredGridView.countBuilder(
-                        crossAxisCount: 3,
-                        itemCount: (snapshot.data! as dynamic).docs.length,
-                        itemBuilder: (context, index) => Image.network(
-                          (snapshot.data! as dynamic).docs[index]['postUrl'],
-                          fit: BoxFit.cover,
-                        ),
-                        staggeredTileBuilder: (index) =>
-                            MediaQuery.of(context).size.width > webScreenSize
-                                ? StaggeredTile.count((index % 7 == 0) ? 1 : 1,
-                                    (index % 7 == 0) ? 1 : 1)
-                                : StaggeredTile.count((index % 7 == 0) ? 2 : 1,
-                                    (index % 7 == 0) ? 2 : 1),
-                        mainAxisSpacing: 8.0,
-                        crossAxisSpacing: 8.0,
-                      );
+                return ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: (snapshot.data! as dynamic).docs.length,
+                  itemBuilder: (context, index) {
+                    var user = (snapshot.data! as dynamic).docs[index];
+                    return _buildUserProfile(
+                      user['photoUrl'],
+                      user['username'],
+                      'True Crime · Horror',
+                    );
+                  },
+                );
               },
             ),
-    );
+          ],
+        ),
+      ),
+  );
   }
 }

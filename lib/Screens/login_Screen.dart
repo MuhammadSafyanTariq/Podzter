@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:insta_clone/Resource/Auth_Methods.dart';
+import 'package:insta_clone/Screens/main_screen.dart';
 import 'package:insta_clone/Screens/sign_up_screen.dart';
 import 'package:insta_clone/Widgets/text_input_feilds.dart';
 import 'package:insta_clone/utils/colors.dart';
@@ -42,9 +43,9 @@ class _LoginScreenState extends State<LoginScreen> {
     if (res == "success") {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => const ResponsiveLayout(
+          builder: (context) => ResponsiveLayout(
               webScreenLayout: WebScreenLayout(),
-              mobileScreenLayout: MobileScreenLayout()),
+              mobileScreenLayout: MainScreen()),
         ),
       );
     } else {
@@ -62,65 +63,69 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
+   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.black,
-        statusBarColor: Colors.transparent,
+        statusBarColor: Color.fromRGBO(0, 0, 0, 0.50),
         systemNavigationBarIconBrightness: Brightness.light,
       ),
     );
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(
-                  'assets/profilebg.png',
-                ),
-                fit: BoxFit.cover),
+      body: Container(
+        height: height,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/profilebg.png'),
+            fit: BoxFit.cover,
           ),
-          padding: EdgeInsets.symmetric(horizontal: 10),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: width > 600 ? 100 : 20),
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 140),
+              SizedBox(height: height * 0.15),
               Align(
                 alignment: Alignment.center,
                 child: Text(
                   "Hello,\nWelcome Back!",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.syne(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40,
-                      color: Colors.white),
+                    fontWeight: FontWeight.bold,
+                    fontSize: width > 600 ? 50 : 40,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-              const SizedBox(height: 70),
+              SizedBox(height: height * 0.08),
               TextInputFields(
                 textEditingController: _emailController,
                 hintText: "Enter User Name",
                 textInputType: TextInputType.emailAddress,
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: height * 0.03),
               TextInputFields(
                 textEditingController: _passwordController,
                 hintText: "Enter Password",
                 isPass: true,
                 textInputType: TextInputType.visiblePassword,
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: height * 0.01),
               Align(
                 alignment: Alignment.centerRight,
                 child: Text(
                   "Forgot Password?",
                   style: GoogleFonts.syne(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14,
-                      color: Colors.white70),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14,
+                    color: Colors.white70,
+                  ),
                 ),
               ),
-              const SizedBox(height: 50),
+              SizedBox(height: height * 0.05),
               InkWell(
                 onTap: LoginUser,
                 child: Container(
@@ -129,11 +134,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    image: DecorationImage(
-                        image: AssetImage(
-                          'assets/buttonbg.png',
-                        ),
-                        fit: BoxFit.cover),
+                    image: const DecorationImage(
+                      image: AssetImage('assets/buttonbg.png'),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   child: _isLoading
                       ? const Center(
@@ -150,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                 ),
               ),
-              const SizedBox(height: 50),
+              SizedBox(height: height * 0.05),
               const Row(
                 children: <Widget>[
                   Expanded(
@@ -174,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 32),
+              SizedBox(height: height * 0.04),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -184,7 +188,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     margin: const EdgeInsets.only(right: 20),
                     decoration: const BoxDecoration(
                       color: Color.fromRGBO(255, 255, 255, 0.15),
-                      // color: Color.fromRGBO(0, 0, 0, 0.5),
                       shape: BoxShape.circle,
                     ),
                     child: IconButton(
@@ -192,7 +195,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         'assets/icons/facebook.png',
                         height: 14,
                       ),
-                      // iconSize: 10,
                       onPressed: () {},
                     ),
                   ),
@@ -202,7 +204,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     margin: const EdgeInsets.only(right: 20),
                     decoration: const BoxDecoration(
                       color: Color.fromRGBO(255, 255, 255, 0.15),
-                      // color: Color.fromRGBO(0, 0, 0, 0.5),
                       shape: BoxShape.circle,
                     ),
                     child: IconButton(
@@ -218,7 +219,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: 40,
                     decoration: const BoxDecoration(
                       color: Color.fromRGBO(255, 255, 255, 0.15),
-                      // color: Color.fromRGBO(0, 0, 0, 0.5),
                       shape: BoxShape.circle,
                     ),
                     child: IconButton(
@@ -231,7 +231,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 40),
+              SizedBox(height: height * 0.04),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

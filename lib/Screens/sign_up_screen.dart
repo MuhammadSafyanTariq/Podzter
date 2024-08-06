@@ -1,16 +1,14 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:insta_clone/Resource/Auth_Methods.dart';
 import 'package:insta_clone/Screens/login_Screen.dart';
+import 'package:insta_clone/Screens/main_screen.dart';
 import 'package:insta_clone/Widgets/text_input_feilds.dart';
 import 'package:insta_clone/utils/colors.dart';
 
-import '../responsive/mobile_screen_layout.dart';
 import '../responsive/responsive_screen_layout.dart';
 import '../responsive/web_screen_layout.dart';
 import '../utils/utils.dart';
@@ -79,9 +77,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
     } else {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => const ResponsiveLayout(
-              webScreenLayout: WebScreenLayout(),
-              mobileScreenLayout: MobileScreenLayout()),
+          builder: (context) =>  ResponsiveLayout(
+              webScreenLayout: const WebScreenLayout(),
+              mobileScreenLayout: MainScreen()),
         ),
       );
     }
@@ -91,10 +89,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    SystemChrome.setSystemUIOverlayStyle(
+   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.black,
-        statusBarColor: Colors.transparent,
+        statusBarColor: Color.fromRGBO(0, 0, 0, 0.50),
         systemNavigationBarIconBrightness: Brightness.light,
       ),
     );
@@ -109,11 +107,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 fit: BoxFit.cover),
           ),
-          padding: EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 90,
               ),
               const Image(
@@ -217,7 +215,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    image: DecorationImage(
+                    image: const DecorationImage(
                         image: AssetImage(
                           'assets/buttonbg.png',
                         ),
@@ -238,18 +236,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 58,
               ),
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
                   text: "By Creating Account I Accept App's ",
-                  style: TextStyle(color: Color(0xFF85808E), fontSize: 16),
+                  style: const TextStyle(color: Color(0xFF85808E), fontSize: 16),
                   children: [
                     TextSpan(
                       text: "Terms And Condition",
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
@@ -259,13 +257,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           );
                         },
                     ),
-                    TextSpan(
+                    const TextSpan(
                       text: " With ",
                       style: TextStyle(color: Color(0xFF85808E)),
                     ),
                     TextSpan(
                       text: "Privacy Policy.",
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
@@ -278,9 +276,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ],
                 ),
               ),
-              Padding(
+              const Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 15),
+                    EdgeInsets.symmetric(horizontal: 24.0, vertical: 15),
                 child: Divider(
                   color: Colors.white54,
                   thickness: 0.5,
@@ -320,7 +318,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               )
             ],

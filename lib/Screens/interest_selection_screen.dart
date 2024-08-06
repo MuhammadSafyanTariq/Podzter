@@ -123,7 +123,7 @@ class _ExpertSelectionScreenState extends State<ExpertSelectionScreen> {
                             });
                           },
                           child: Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 30, vertical: 10),
                             decoration: BoxDecoration(
                               color: isSelected
@@ -156,7 +156,7 @@ class _ExpertSelectionScreenState extends State<ExpertSelectionScreen> {
                     // Handle save action
                   },
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: 14.0),
+                    padding: const EdgeInsets.symmetric(vertical: 14.0),
                     backgroundColor: Colors.transparent,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),

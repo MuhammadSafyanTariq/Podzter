@@ -21,6 +21,7 @@ class CustomNavBar extends StatelessWidget {
             child: Container(
               height: 55,
               width: MediaQuery.of(context).size.width,
+              color: Colors.transparent,
             ),
           ),
         ),
@@ -28,7 +29,6 @@ class CustomNavBar extends StatelessWidget {
           height: 75.0,
           width: MediaQuery.of(context).size.width,
           decoration: const BoxDecoration(
-            color: Colors.transparent,
             image: DecorationImage(
               image: AssetImage('assets/navbar.png'),
               fit: BoxFit.fill,
@@ -36,66 +36,37 @@ class CustomNavBar extends StatelessWidget {
           ),
           child: Column(
             children: [
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  GestureDetector(
-                    onTap: () => onItemSelected(0),
-                    child: Image.asset(
-                      'assets/icons/home.png',
-                      width: 24,
-                      height: 24,
-                      color:
-                          selectedIndex == 0 ? Colors.white : Color(0xFF8388A4),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => onItemSelected(1),
-                    child: Image.asset(
-                      'assets/icons/search.png',
-                      width: 24,
-                      height: 24,
-                      color:
-                          selectedIndex == 1 ? Colors.white : Color(0xFF8388A4),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => onItemSelected(2),
-                    child: Image.asset(
-                      'assets/icons/add.png',
-                      width: 50,
-                      height: 50,
-                      // color: selectedIndex == 2 ? Colors.white : Colors.white70,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => onItemSelected(3),
-                    child: Image.asset(
-                      'assets/icons/chatdoted.png',
-                      width: 24,
-                      height: 24,
-                      color:
-                          selectedIndex == 3 ? Colors.white : Color(0xFF8388A4),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => onItemSelected(4),
-                    child: Image.asset(
-                      'assets/icons/person.png',
-                      width: 24,
-                      height: 24,
-                      color:
-                          selectedIndex == 4 ? Colors.white : Color(0xFF8388A4),
-                    ),
-                  ),
+                  _buildNavBarItem(0, 'assets/icons/home.png'),
+                  _buildNavBarItem(1, 'assets/icons/search.png'),
+                  _buildNavBarItem(2, 'assets/icons/add.png', isLarge: true),
+                  _buildNavBarItem(3, 'assets/icons/chatdoted.png'),
+                  _buildNavBarItem(4, 'assets/icons/person.png'),
                 ],
               ),
             ],
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildNavBarItem(int index, String assetPath, {bool isLarge = false}) {
+    return GestureDetector(
+      onTap: () => onItemSelected(index),
+      child: Image.asset(
+        assetPath,
+        width: isLarge ? 50 : 24,
+        height: isLarge ? 50 : 24,
+        color: !isLarge
+            ? selectedIndex == index
+                ? Colors.white
+                : const Color(0xFF8388A4)
+            : null,
+      ),
     );
   }
 }
