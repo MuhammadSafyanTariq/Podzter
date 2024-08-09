@@ -15,13 +15,18 @@ class CustomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        ClipRect(
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
-            child: Container(
-              height: 55,
-              width: MediaQuery.of(context).size.width,
-              color: Colors.transparent,
+        Positioned(
+          bottom: 0,
+          right: 0,
+          left: 0,
+          child: ClipRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+              child: Container(
+                height: 54,
+                width: MediaQuery.of(context).size.width,
+                color: Colors.transparent,
+              ),
             ),
           ),
         ),

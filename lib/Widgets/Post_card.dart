@@ -48,6 +48,99 @@ class _PostCardState extends State<PostCard> {
     }
   }
 
+  void _showOptionsBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.black12,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(30),
+        ),
+      ),
+      builder: (context) {
+        return Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/menubg.png'),
+              fit: BoxFit.cover,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  height: 8,
+                  width: 130,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.25),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+                _buildBottomSheetItem(
+                  icon: Icon(
+                    Icons.visibility_off_rounded,
+                    color: Colors.white,
+                  ),
+                  text: 'Hide Post',
+                  onTap: () {
+                    // Handle Hide Post
+                  },
+                ),
+                _buildBottomSheetItem(
+                  icon: Icon(
+                    Icons.person_remove_rounded,
+                    color: Colors.white,
+                  ),
+                  text: 'Unfollow',
+                  onTap: () {
+                    // Handle Unfollow
+                  },
+                ),
+                _buildBottomSheetItem(
+                  icon: Image.asset(
+                    'assets/icons/redi.png',
+                    height: 23,
+                  ),
+                  text: 'Report',
+                  textColor: Colors.redAccent,
+                  onTap: () {
+                    // Handle Report
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildBottomSheetItem({
+    required Widget icon,
+    required String text,
+    required VoidCallback onTap,
+    Color textColor = Colors.white,
+  }) {
+    return ListTile(
+      leading: icon,
+      title: Text(
+        text,
+        style: TextStyle(
+          color: textColor,
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      onTap: onTap,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final UserModel user = Provider.of<UserProvider>(context).getUser;
@@ -119,10 +212,15 @@ class _PostCardState extends State<PostCard> {
                       ),
                     ),
                     const Spacer(),
-                    const Icon(
-                      Icons.more_horiz_rounded,
-                      color: Colors.white70,
-                      size: 30,
+                    GestureDetector(
+                      onTap: () {
+                        _showOptionsBottomSheet(context);
+                      },
+                      child: const Icon(
+                        Icons.more_horiz_rounded,
+                        color: Colors.white70,
+                        size: 30,
+                      ),
                     ),
                     const SizedBox(
                       width: 20,

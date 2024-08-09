@@ -10,7 +10,10 @@ import '../Widgets/comment_card.dart';
 
 class CommentScreen extends StatefulWidget {
   final snap;
-  const CommentScreen({super.key, required this.snap});
+  const CommentScreen({
+    super.key,
+    required this.snap,
+  });
 
   @override
   State<CommentScreen> createState() => _CommentScreenState();
